@@ -14,5 +14,9 @@ Route::get('/landin',[ControllerIndex::class,'Landin']);
 
 Route::post('/form',[ControllerIndex::class,'FormPost']);
 
+Route::post('/',[ControllerIndex::class,'IndexPost']);
+
+Route::post('/borrar',[ControllerIndex::class,'Delete']);
+
 Route::dispatch();
 ?>

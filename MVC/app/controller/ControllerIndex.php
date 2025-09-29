@@ -1,6 +1,8 @@
 <?php 
 
 namespace app\controller;
+use app\model\Database;
+use app\model\Estudiantes;
 
 class ControllerIndex{
 
@@ -20,7 +22,12 @@ class ControllerIndex{
 
     public function Index()
     {
-        return $this->view('index',["title" => 'Pagina de inciio']);
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        $estudiante = new Estudiantes($conn);
+
+        return $this->view('index',["title" => 'Pagina de inciio', "estudiantes" => $estudiante->select()]);
     }
 
     public function Cam(){ 
@@ -81,6 +88,41 @@ class ControllerIndex{
 
     public function Landin(){ 
         return $this->view('landin',['title'=> 'Pagina LANDIN']);
+    }
+
+    public function IndexPost()
+    {
+        $db = new Database();
+        $conn = $db->getConnection();
+        $estudiante = new Estudiantes($conn);
+
+        $estudiante->nombre = $_POST['nombre'];
+        $estudiante->apellido = $_POST['apellido'];
+        $estudiante->edad = $_POST['edad'];
+        $estudiante->grado= $_POST['grado'];
+
+        $result = $estudiante->create();
+
+        if($result)
+        {
+            return $this->view('index',['title'=> 'pagina de incio','exito'=>'guardado en la base de datos',"estudiantes" => $estudiante->select()]);
+        }
+        else{return $this->view('index',['title'=> 'pagina de incio','error'=>'No se guardo',"estudiantes" => $estudiante->select()]);}
+    }
+
+
+    public function Delete()
+    {
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        $estudiante = new Estudiantes($conn);
+
+        $estudiante->delete($_POST['borrar']);
+
+
+        return $this->view('index',["title" => 'Pagina de incio',"estudiantes" => $estudiante->select()]);
+
     }
 
 }
