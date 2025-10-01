@@ -1,6 +1,22 @@
 <?php 
 
-public static function dispatch(){
+namespace lib;
+
+class Route 
+{
+    private static $routes = array();
+    private static $URL_BASE = '/MVC/public';
+
+    public static function get($uri, $callback)
+    {
+        self::$routes['GET'][self::$URL_BASE .$uri]= $callback;
+    }
+    public static function post($uri, $callback)
+    {
+        self::$routes['POST'][self::$URL_BASE .$uri]= $callback;
+    }
+
+    public static function dispatch(){
         $uri = $_SERVER["REQUEST_URI"];
        
         $method = $_SERVER["REQUEST_METHOD"];
@@ -13,12 +29,10 @@ public static function dispatch(){
                 //return;
             }
 
-
             if(preg_match("#^$url$#",$uri, $matches)){
                 $params = array_slice($matches,1);
                 //echo json_encode($params);
                // $response = $funcion(...$params);
-
 
                if(is_callable($funcion)){
                 $response = $funcion(...$params);
@@ -39,5 +53,5 @@ public static function dispatch(){
         }
         echo "404";
     }
-
+}
 ?>
