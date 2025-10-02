@@ -20,7 +20,7 @@ class Route{
 
 
     public static function dispatch(){
-        $uri = $_SERVER["REQUEST_URI"];
+    $uri = explode('?', $_SERVER["REQUEST_URI"])[0];
        
         $method = $_SERVER["REQUEST_METHOD"];
         //echo "Url".$uri."<br>";

@@ -7,7 +7,7 @@ use app\model\Database;
 
 class Estudiante
 {
-    private $tabla = "";
+    public $tabla = "";
     private $conn;
 
     public $nombre;

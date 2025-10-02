@@ -24,6 +24,17 @@ class IndexController
         return $this->view('index', ["title" => "INCIO"]);
     }
 
+    public function Get()
+    {
+        // Procesar datos enviados por GET
+        $nombre = $_GET['nombre'] ?? null;
+        $apellido = $_GET['apellido'] ?? null;
+        $edad = $_GET['edad'] ?? null;
+        $grado = $_GET['grado'] ?? null;
+
+       
+        return $this->view('index', ["title" => "GOD"]);
+    }
 
 }
 
