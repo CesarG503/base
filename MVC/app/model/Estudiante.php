@@ -3,7 +3,7 @@
 
 namespace app\model;
 use PDO;
-use app\model\Database;
+use lib\Database;
 
 class Estudiante
 {

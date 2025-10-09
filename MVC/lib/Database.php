@@ -1,8 +1,7 @@
 <?php
 
-namespace app\model;
+namespace lib;;
 use PDO;
-use PDOException;
 
 class Database{
 
